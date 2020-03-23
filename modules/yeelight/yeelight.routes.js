@@ -1,6 +1,5 @@
 let router = require('express').Router();
 let YeelightController = require('./yeelight.controller')();
-let y = require('yeelight-awesome');
 
 var routes = function() {
 

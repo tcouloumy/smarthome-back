@@ -1,5 +1,4 @@
-let y = require('yeelight-awesome');
-let { Yeelight }  = require('yeelight-node-binding')
+let { Yeelight }  = require('yeelight-node')
 
 module.exports = function YeelightController(gladys) {
 
@@ -15,7 +14,11 @@ module.exports = function YeelightController(gladys) {
 			return;
 		})
 		.catch((err) => {
-			res.sendStatus(503).json(JSON.parse(data));
+			res.sendStatus(503).json(err);
+			return;
+		})
+		.finally(() => {
+			console.log('wtf');
 			return;
 		});
 
@@ -23,20 +26,20 @@ module.exports = function YeelightController(gladys) {
 
 	function setBrightness(req, res) {
 		
-		let brightness = parseInt(req.body.brightness);
-		let yeelight = new Yeelight({ 
-			ip: '192.168.0.12',
-			port: 55443
-		});
+		// let brightness = parseInt(req.body.brightness);
+		// let yeelight = new Yeelight({ 
+		// 	ip: '192.168.0.12',
+		// 	port: 55443
+		// });
 
-		yeelight.set_bright(brightness).then((data) => {
-			res.json(JSON.parse(data));
-			return;
-		})
-		.catch((err) => {
-			res.sendStatus(503).json(JSON.parse(data));
-			return;
-		});
+		// yeelight.set_bright(brightness).then((data) => {
+		// 	res.json(JSON.parse(data));
+		// 	return;
+		// })
+		// .catch((err) => {
+		// 	res.sendStatus(503).json(JSON.parse(data));
+		// 	return;
+		// });
 	}
 
 	function setColor(req, res) {
