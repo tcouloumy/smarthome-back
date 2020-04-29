@@ -31,11 +31,12 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 /* Loading the core modules */
+app.use('/users', require('./core/users/users.routes')());
 app.use('/devices', require('./core/devices/devices.routes')());
 
 
 /* Loading the additional modules */
-app.use('/', require('./modules/yeelight/yeelight.routes')());
+app.use('/light', require('./modules/yeelight/yeelight.routes')());
 
 
 app.listen(port, () => {

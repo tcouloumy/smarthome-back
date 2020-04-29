@@ -17,3 +17,5 @@ config.db.details = {
     port: 8889,      
     dialect: 'mysql'
 };
+
+config.secret = "thibSmarthomeSalt123";
