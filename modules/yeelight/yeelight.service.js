@@ -1,29 +1,30 @@
-let { Yeelight }  = require('yeelight-node')
+let models			= require('../../models');
+let { Yeelight }  	= require('yeelight-node')
 
 
 module.exports = function YeelightService() {
 
 	var self = this;
 
-	self.lights = {};
+	async function getLightByUid(uid) {
 
-	// Let's simulate the result from a sql request
-	var db = [{
-		uid: 1,
-		type: "yeelight",
-		ip : "192.168.0.12"
-	}]
-
-	// initiating objects
-	for (var i = db.length - 1; i >= 0; i--) {
-		self.lights[db[i].uid] = new Yeelight({ 
-			ip: db[i].ip,
-			port: 55443
+		return new Promise((resolve, reject) => {
+			models.Device.findAll({
+				where: {
+					device_uid: uid
+				}
+			}).then((data) => {
+				if (data.length > 0) {
+					resolve(new Yeelight({ 
+						ip: data[0].device_ip,
+						port: data[0].device_port
+					}))
+				}
+				else {
+					reject({});
+				}
+			});
 		});
-	}
-
-	function getLightByUid(uid) {
-		return self.lights[uid];
 	}
 
 	return Object.freeze({

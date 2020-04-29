@@ -24,5 +24,8 @@
     "promise-timeout": "^1.3.0",
     "sequelize": "^5.19.2",
     "yeelight-node": "^1.1.2"
+  },
+  "devDependencies": {
+    "sequelize-fixtures": "^1.1.1"
   }
 }

@@ -9,7 +9,7 @@ config.server = {
 config.db = {
     user: 'root', 
     password: '',
-    name: 'alphaxbet'
+    name: 'smarthome'
 };
 
 config.db.details = {

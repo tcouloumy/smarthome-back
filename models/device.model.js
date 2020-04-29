@@ -2,15 +2,34 @@
 module.exports = (sequelize, DataTypes) => {
 
 	const device = sequelize.define('device', {
-		id: {
-			type: DataTypes.UUID,
+		device_id: {
+			type: DataTypes.INTEGER,
 			primaryKey: true,
-			defaultValue: DataTypes.UUIDV4,
+			autoIncrement: true
 		},
-		name: {
+		device_uid: {
+			unique: true,
+			type: DataTypes.INTEGER
+		},
+		device_type: {
 			allowNull: false,
 			unique: true,
 			type: DataTypes.STRING,
+		},
+		device_name: {
+			allowNull: false,
+			unique: true,
+			type: DataTypes.STRING,
+		},
+		device_ip: {
+			allowNull: false,
+			unique: true,
+			type: DataTypes.STRING,
+		},
+		device_port: {
+			allowNull: false,
+			unique: true,
+			type: DataTypes.INTEGER,
 		}
 	},
 	{});

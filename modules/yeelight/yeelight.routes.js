@@ -7,6 +7,7 @@ var routes = function() {
 	router.post('/light/:uid/toggle', YeelightController.toggle);
 	router.post('/light/:uid/brightness', YeelightController.setBrightness);
 	router.post('/light/:uid/color', YeelightController.setColor);
+	router.post('/light/:uid/temperature', YeelightController.setTemperature);
 
 	return router;
 };

@@ -1,0 +1,12 @@
+[
+	{
+		"model": "Device",
+		"data": {
+			"device_uid": 1,
+			"device_type": "yeelight",
+			"device_name": "salon",
+			"device_ip": "192.168.0.12",
+			"device_port": 55443
+		}
+	}
+]

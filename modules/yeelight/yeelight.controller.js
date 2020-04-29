@@ -1,25 +1,33 @@
 let { Yeelight }  		= require('yeelight-node')
 let pt 					= require('promise-timeout');
+let models				= require('../../models');
 let YeelightService 	= require('./yeelight.service');
 
 
 module.exports = function YeelightController() {
 
-	function toggle(req, res) {
+	function getProperties(req, res) {}
 
-		let light = YeelightService.getLightByUid(req.params.uid);
+	async function toggle(req, res) {
 		
+		const uid = parseInt(req.params.uid);
+
+		if (!uid || !Number.isInteger(uid)) {
+			return res.status(400).send({});
+		}
+
+		let light = await YeelightService.getLightByUid(req.params.uid);
+
 		pt.timeout(light.toggle(), 2000).then((data) => {
 			return res.send(JSON.parse(data));
 		})
 		.catch((err) => {
 			// TODO : a helper error handler
 			if (err instanceof pt.TimeoutError) {
-				console.log(err);
 				return res.status(504).send(err);
 			}
 			else {
-				return res.status(500).json(err);
+				return res.status(500).send(err);
 			}
 		});
 	}
@@ -51,27 +59,46 @@ module.exports = function YeelightController() {
 			g = parseInt(req.body.g),
 			b = parseInt(req.body.b);
 
-			
-			// pt.timeout(light.setRGB(new Yeelight.Color(r, g, b), "smooth", 1000), 2000).then((data) => {
-			pt.timeout(light.set_rgb([r, g, b], "smooth", 1000), 2000).then((data) => {
-				return res.send(JSON.parse(data));
-			})
-			.catch((err) => {
-				// TODO : a helper error handler
-				if (err instanceof pt.TimeoutError) {
-					console.log(err);
-					return res.status(504).send(err);
-				}
-				else {
-					return res.status(500).json(err);
-				}
-			})
-		
+		// pt.timeout(light.setRGB(new Yeelight.Color(r, g, b), "smooth", 1000), 2000).then((data) => {
+		pt.timeout(light.set_rgb([r, g, b], "smooth", 1000), 2000).then((data) => {
+			return res.send(JSON.parse(data));
+		})
+		.catch((err) => {
+			// TODO : a helper error handler
+			if (err instanceof pt.TimeoutError) {
+				console.log(err);
+				return res.status(504).send(err);
+			}
+			else {
+				return res.status(500).json(err);
+			}
+		})
+	}
+
+	function setTemperature(req, res) {
+
+		let light = YeelightService.getLightByUid(req.params.uid);
+		let value = parseInt(req.body.value);
+
+		pt.timeout(light.set_ct_abx(value, "smooth", 1000), 2000).then((data) => {
+			return res.send(JSON.parse(data));
+		})
+		.catch((err) => {
+			// TODO : a helper error handler
+			if (err instanceof pt.TimeoutError) {
+				console.log(err);
+				return res.status(504).send(err);
+			}
+			else {
+				return res.status(500).json(err);
+			}
+		})
 	}
 
 	return Object.freeze({
 		toggle: toggle,
 		setBrightness: setBrightness,
-		setColor: setColor
+		setColor: setColor,
+		setTemperature: setTemperature
 	});
 }();
