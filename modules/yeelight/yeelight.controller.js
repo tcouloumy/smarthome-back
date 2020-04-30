@@ -32,9 +32,9 @@ module.exports = function YeelightController() {
 		});
 	}
 
-	function setBrightness(req, res) {
+	async function setBrightness(req, res) {
 		
-		let light = YeelightService.getLightByUid(req.params.uid);
+		let light = await YeelightService.getLightByUid(req.params.uid);
 		let brightness = parseInt(req.body.brightness);
 
 		pt.timeout(light.set_bright(brightness), 2000).then((data) => {
@@ -52,9 +52,9 @@ module.exports = function YeelightController() {
 		});
 	}
 
-	function setColor(req, res) {
+	async function setColor(req, res) {
 
-		let light = YeelightService.getLightByUid(req.params.uid);
+		let light = await YeelightService.getLightByUid(req.params.uid);
 		let r = parseInt(req.body.r),
 			g = parseInt(req.body.g),
 			b = parseInt(req.body.b);
@@ -75,9 +75,9 @@ module.exports = function YeelightController() {
 		})
 	}
 
-	function setTemperature(req, res) {
+	async function setTemperature(req, res) {
 
-		let light = YeelightService.getLightByUid(req.params.uid);
+		let light = await YeelightService.getLightByUid(req.params.uid);
 		let value = parseInt(req.body.value);
 
 		pt.timeout(light.set_ct_abx(value, "smooth", 1000), 2000).then((data) => {

@@ -14,7 +14,7 @@ module.exports = function YeelightService() {
 					device_uid: uid
 				}
 			}).then((data) => {
-				if (data.length > 0) {
+				 if (data.length > 0) {
 					resolve(new Yeelight({ 
 						ip: data[0].device_ip,
 						port: data[0].device_port
@@ -22,7 +22,7 @@ module.exports = function YeelightService() {
 				}
 				else {
 					reject({});
-				}
+				} 
 			});
 		});
 	}
