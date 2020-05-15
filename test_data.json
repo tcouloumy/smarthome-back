@@ -8,5 +8,15 @@
 			"device_ip": "192.168.0.12",
 			"device_port": 55443
 		}
+	},
+	{
+		"model": "User",
+		"data": {
+			"user_username": "tonblaz",
+			"user_password": "test",
+			"user_firstName": "Thibault",
+			"user_lastName": "Couloumy",
+			"user_role": "Admin"
+		}
 	}
 ]

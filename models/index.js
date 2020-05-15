@@ -9,9 +9,11 @@ const sequelize = new Sequelize(config.db.name,
 );
 
 const DeviceModel = require('./device.model');
+const UserModel = require('./user.model');
 
 const models = {
-	Device: DeviceModel(sequelize, Sequelize)
+	Device: DeviceModel(sequelize, Sequelize),
+	User: UserModel(sequelize, Sequelize)
 };
 
 // TODO
