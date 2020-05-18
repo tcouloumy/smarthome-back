@@ -1,5 +1,5 @@
 let models			= require('../../models');
-let { Yeelight }  	= require('yeelight-node')
+let { Yeelight, Client }  	= require('yeelight-node')
 
 
 module.exports = function YeelightService() {
@@ -27,7 +27,33 @@ module.exports = function YeelightService() {
 		});
 	}
 
+	async function discover() {
+
+
+		return new Promise((resolve, reject) => {
+
+			var client = new Client();
+			var lights = [];
+
+			client.bind(yeelight => {
+
+				lights = [...lights, {
+					ip: yeelight.ip,
+					port: yeelight.port,
+					type: 'yeelight'
+				}];
+
+				client.socket.close();
+				resolve(lights);
+
+			});
+
+		});
+	}
+
+
 	return Object.freeze({
-		getLightByUid: getLightByUid
+		getLightByUid: getLightByUid,
+		discover: discover
 	})
 }();

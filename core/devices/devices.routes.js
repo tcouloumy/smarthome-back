@@ -1,5 +1,7 @@
 const router 				= require('express').Router();
 const DevicesController 	= require('./devices.controller');
+const discover 				= require('./discover');
+
 
 var routes = function() {
 
@@ -8,6 +10,8 @@ var routes = function() {
 	router.get('/:uid', DevicesController.getByUid);
 	router.put('/:uid', () => {});
 	router.delete('/:uid', () => {});
+
+	router.get('/:uid/discover', discover);
 
 	return router;
 };

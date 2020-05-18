@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
+app.disable('etag');
+
+
 // Rebuild the database
 db.sequelize.sync({ force: true }).then(() => {
 	console.log("All models were synchronized successfully.")
